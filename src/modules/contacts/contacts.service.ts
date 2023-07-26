@@ -1,26 +1,59 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
+import { ContactsRepository } from './repositories/contacts.repository';
 
 @Injectable()
 export class ContactsService {
-  create(createContactDto: CreateContactDto) {
-    return 'This action adds a new contact';
+  constructor(private contactsRepository: ContactsRepository) {}
+  async create(createContactDto: CreateContactDto) {
+    const findContact = await this.contactsRepository.findByEmail(
+      createContactDto.email,
+    );
+
+    if (findContact) {
+      throw new ConflictException('email already exists');
+    }
+
+    const contact = await this.contactsRepository.create(createContactDto);
+    return contact;
   }
 
-  findAll() {
-    return `This action returns all contacts`;
+  async findAll() {
+    return this.contactsRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} contact`;
+  async findOne(id: string) {
+    const findContact = await this.contactsRepository.findOne(id);
+
+    if (!findContact) {
+      throw new NotFoundException('Contact Not found');
+    }
+
+    return findContact;
   }
 
-  update(id: number, updateContactDto: UpdateContactDto) {
-    return `This action updates a #${id} contact`;
+  async update(id: string, updateContactDto: UpdateContactDto) {
+    const findContact = await this.contactsRepository.findOne(id);
+
+    if (!findContact) {
+      throw new NotFoundException('Contact Not found');
+    }
+
+    return this.contactsRepository.update(id, updateContactDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} contact`;
+  async remove(id: string) {
+    const findContact = await this.contactsRepository.findOne(id);
+
+    if (!findContact) {
+      throw new NotFoundException('Contact Not found');
+    }
+
+    return this.contactsRepository.delete(id);
   }
 }
