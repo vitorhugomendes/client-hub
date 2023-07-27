@@ -10,7 +10,7 @@ export class User {
   password: string;
 
   phone: string;
-  register_date: Date;
+  registerDate: Date;
 
   constructor() {
     this.id = randomUUID();

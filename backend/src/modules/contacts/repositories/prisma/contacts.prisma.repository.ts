@@ -8,10 +8,11 @@ import { Contact } from '../../entities/contact.entity';
 @Injectable()
 export class ContactsPrismaRepository implements ContactsRepository {
   constructor(private prisma: PrismaService) {}
-  async create(data: CreateContactDto): Promise<Contact> {
+  async create(data: CreateContactDto, userId: string): Promise<Contact> {
     const contact = new Contact();
     Object.assign(contact, {
       ...data,
+      userId,
     });
     const newContact = await this.prisma.contact.create({
       data: { ...contact },
@@ -31,17 +32,17 @@ export class ContactsPrismaRepository implements ContactsRepository {
     return contact;
   }
 
-  async findByEmail(email: string): Promise<Contact> {
-    const contact = await this.prisma.contact.findUnique({
-      where: { email },
+  async findByEmailAndUser(email: string, userId: string): Promise<Contact> {
+    const contact = await this.prisma.contact.findFirst({
+      where: { email, userId },
     });
 
     return contact;
   }
 
-  async findByUser(user_id: string): Promise<Contact[]> {
+  async findByUser(userId: string): Promise<Contact[]> {
     const contacts = await this.prisma.contact.findMany({
-      where: { user_id },
+      where: { userId },
     });
 
     return contacts;

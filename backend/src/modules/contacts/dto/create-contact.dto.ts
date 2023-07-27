@@ -10,7 +10,4 @@ export class CreateContactDto {
 
   @IsPhoneNumber('BR')
   phone: string;
-
-  @IsString()
-  user_id: string;
 }
