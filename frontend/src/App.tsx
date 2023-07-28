@@ -1,10 +1,10 @@
 import { RoutesMain } from './routes';
-import GlobalStyle from './styles/globalStyle';
+import { GlobalStyles } from './styles/Global';
 
 export const App = () => {
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyles />
       <RoutesMain />
     </>
   );
