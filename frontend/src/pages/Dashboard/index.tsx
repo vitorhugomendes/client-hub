@@ -8,6 +8,7 @@ export const Dashboard = () => {
       </header>
       <main>
         <div>
+          alo
           <h1>dashboard</h1>
           <ul className="clients list">
             <li></li>
