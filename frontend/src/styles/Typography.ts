@@ -7,7 +7,7 @@ interface IStyledTitleProps {
 }
 
 interface IStyledParagraphProps {
-  fontColor?: 'gray' | 'red';
+  fontcolor?: 'gray' | 'red';
   textAlign?: 'center' | 'left' | 'right';
 }
 
@@ -52,8 +52,8 @@ export const StyledParagraph = styled.p<IStyledParagraphProps>`
   line-height: 1.8;
   text-align: ${({ textAlign }) => textAlign};
 
-  ${({ fontColor, theme }) => {
-    switch (fontColor) {
+  ${({ fontcolor, theme }) => {
+    switch (fontcolor) {
       case 'gray':
         return css`
           color: ${theme.colors.gray1};
