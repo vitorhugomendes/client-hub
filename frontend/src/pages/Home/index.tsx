@@ -1,3 +1,5 @@
+import { LoginForm } from '../../components';
+
 export const Home = () => {
   return (
     <main>
@@ -13,6 +15,7 @@ export const Home = () => {
             <div className="buttons">
               <button>register</button>
               <button>login</button>
+              <LoginForm></LoginForm>
             </div>
           </div>
         </div>
