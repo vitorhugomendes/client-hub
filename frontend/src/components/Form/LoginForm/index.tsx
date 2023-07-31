@@ -4,6 +4,7 @@ import { Input } from '../Input';
 import { LoginData, schema } from './validator';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '../../../hooks/useAuth';
+import { Button } from '../../Button';
 
 export const LoginForm = () => {
   const { signIn } = useAuth();
@@ -32,7 +33,7 @@ export const LoginForm = () => {
         register={register('password')}
         error={errors?.password?.message}
       />
-      <button>Entrar</button>
+      <Button color="blue" size="default" text="Entrar" type="submit" />
     </StyledForm>
   );
 };

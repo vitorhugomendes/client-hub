@@ -1,12 +1,11 @@
 import styled, { css } from 'styled-components';
-import { Button, Link } from '@mui/material';
 
 interface IStyledButtonProps {
   size: 'default' | 'medium';
-  color: 'green' | 'gray';
+  color: 'blue' | 'gray';
 }
 
-export const StyledButtonCSS = css<IStyledButtonProps>`
+export const StyledButton = styled.button<IStyledButtonProps>`
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -37,7 +36,7 @@ export const StyledButtonCSS = css<IStyledButtonProps>`
 
   ${({ theme, color }) => {
     switch (color) {
-      case 'green':
+      case 'blue':
         return css`
           color: ${theme.colors.gray1};
           background: ${theme.colors.primary};
@@ -56,12 +55,4 @@ export const StyledButtonCSS = css<IStyledButtonProps>`
         `;
     }
   }}
-`;
-
-export const StyledButton = styled(Button)<IStyledButtonProps>`
-  ${StyledButtonCSS}
-`;
-
-export const StyledButtonLink = styled(Link)<IStyledButtonProps>`
-  ${StyledButtonCSS}
 `;
