@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components';
 import { Button, Link } from '@mui/material';
 
 interface IStyledButtonProps {
-  $buttonSize: 'default' | 'medium';
-  $buttonStyle: 'green' | 'gray';
+  size: 'default' | 'medium';
+  color: 'green' | 'gray';
 }
 
 export const StyledButtonCSS = css<IStyledButtonProps>`
@@ -20,8 +20,8 @@ export const StyledButtonCSS = css<IStyledButtonProps>`
 
   transition: 0.4s;
 
-  ${({ $buttonSize }) => {
-    switch ($buttonSize) {
+  ${({ size }) => {
+    switch (size) {
       case 'default':
         return css`
           padding: 0 30px;
@@ -35,8 +35,8 @@ export const StyledButtonCSS = css<IStyledButtonProps>`
     }
   }}
 
-  ${({ theme, $buttonStyle }) => {
-    switch ($buttonStyle) {
+  ${({ theme, color }) => {
+    switch (color) {
       case 'green':
         return css`
           color: ${theme.colors.gray1};
