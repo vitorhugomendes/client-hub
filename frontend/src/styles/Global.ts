@@ -1,9 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 
-export default createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
    :root {
     font-size: 60%;
-    font-family: 'Inter'
   }
 
   /* font-size: 16px;
