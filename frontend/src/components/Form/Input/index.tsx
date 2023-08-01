@@ -4,7 +4,7 @@ import { StyledParagraph } from '../../../styles/Typography';
 
 interface IInputProps {
   label: string;
-  id: 'email' | 'password' | 'name' | 'passwordConfirmation';
+  id: 'email' | 'password' | 'name' | 'confirmPassword' | 'phone';
   type: string;
   register: UseFormRegisterReturn<string>;
   error: string | undefined;
