@@ -1,7 +1,6 @@
-import styled from 'styled-components';
-import { keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-const Animation = keyframes`
+export const FadeIn = keyframes`
   from {
     transform: translateY(60px);
     opacity: 0;
@@ -25,7 +24,7 @@ export const StyledModal = styled.div`
   z-index: 1001;
 
   .modal-container {
-    animation: ${Animation} 0.5s;
+    animation: ${FadeIn} 0.5s;
     display: block;
     width: 100%;
     max-width: 500px;

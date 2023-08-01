@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { BaseTypography } from '../components/Typography';
 
 interface IStyledTitleProps {
-  $fontSize: 'one' | 'two' | 'three' | 'four';
+  fontSize: 'one' | 'two' | 'three' | 'four';
   textAlign?: 'center' | 'left' | 'right';
 }
 
@@ -13,27 +13,28 @@ interface IStyledParagraphProps {
 
 export const StyledTitle = styled(BaseTypography)<IStyledTitleProps>`
   width: 100%;
-  font-family: ${({ theme }) => theme.fonts.primary};
+  font-family: ${({ theme }) => theme.fonts.secondary};
   line-height: 1.6;
   text-align: ${({ textAlign }) => textAlign};
+  color: ${({ theme }) => theme.colors.text};
 
-  ${({ $fontSize }) => {
-    switch ($fontSize) {
+  ${({ fontSize }) => {
+    switch (fontSize) {
       case 'one':
         return css`
-          font-size: 1.55rem;
-          font-weight: 700;
+          font-size: 3rem;
+          font-weight: 400;
         `;
       case 'two':
         return css`
-          font-size: 1.35rem;
-          font-weight: 700;
+          font-size: 2rem;
+          font-weight: 400;
         `;
 
       case 'three':
         return css`
-          font-size: 1.15rem;
-          font-weight: 700;
+          font-size: 1.5rem;
+          font-weight: 400;
         `;
 
       case 'four':
@@ -42,7 +43,7 @@ export const StyledTitle = styled(BaseTypography)<IStyledTitleProps>`
           font-weight: 400;
         `;
     }
-  }}
+  }};
 `;
 
 export const StyledParagraph = styled.p<IStyledParagraphProps>`

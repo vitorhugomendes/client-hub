@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 
 interface IStyledButtonProps {
-  size: 'default' | 'medium';
-  color: 'blue' | 'gray';
+  size: 'medium' | 'big';
 }
 
 export const StyledButton = styled.button<IStyledButtonProps>`
@@ -17,41 +16,29 @@ export const StyledButton = styled.button<IStyledButtonProps>`
 
   border-radius: 8px;
 
-  transition: 0.4s;
+  transition: 0.4s
+    ${({ theme }) => {
+      return css`
+        font-family: ${theme.fonts.primary};
+        color: ${theme.colors.background};
+        background: ${theme.colors.secondary};
+        &:hover {
+          background: ${theme.colors.primary};
+        }
+      `;
+    }};
 
   ${({ size }) => {
     switch (size) {
-      case 'default':
-        return css`
-          padding: 0 30px;
-          height: 60px;
-        `;
       case 'medium':
         return css`
           padding: 0 20px;
           height: 40px;
         `;
-    }
-  }}
-
-  ${({ theme, color }) => {
-    switch (color) {
-      case 'blue':
+      case 'big':
         return css`
-          color: ${theme.colors.gray1};
-          background: ${theme.colors.primary};
-          &:hover {
-            opacity: 0.5;
-          }
-        `;
-      case 'gray':
-        return css`
-          color: ${theme.colors.gray3};
-          background: ${theme.colors.gray1};
-          &:hover {
-            color: ${theme.colors.gray1};
-            background: ${theme.colors.gray3};
-          }
+          padding: 0 30px;
+          height: 60px;
         `;
     }
   }}

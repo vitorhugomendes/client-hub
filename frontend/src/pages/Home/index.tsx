@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import { Modal, LoginForm, RegisterForm } from '../../components';
+import { Modal, LoginForm, RegisterForm, Button } from '../../components';
+import { StyledHomePage } from './style';
+import { StyledContainer, StyledGridBox } from '../../styles/Grid';
+import { StyledTitle } from '../../styles/Typography';
+import Logo from '../../assets/client-icon-color.png';
 
 export const Home = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -15,24 +19,27 @@ export const Home = () => {
   };
 
   return (
-    <main>
-      <div>
-        <div>
-          <div className="wheel"></div>
+    <StyledHomePage>
+      <StyledContainer>
+        <StyledGridBox>
+          <div className="logo-container">
+            <img src={Logo} alt="Client Hub Logo" />
+          </div>
           <div className="text-content">
-            <div className="logo"></div>
-            <div className="text">
-              <h1>title</h1>
-              <h2>description</h2>
-            </div>
-            <div className="buttons">
-              <button onClick={toggleRegister}>register</button>
-
-              <button onClick={toggleLogin}>login</button>
+            <StyledTitle tag="h1" fontSize="one" textAlign="center">
+              Client Hub
+            </StyledTitle>
+            <div className="buttons-container">
+              <Button size="big" type="button" clickFunction={toggleLogin}>
+                Login
+              </Button>
+              <Button size="big" type="button" clickFunction={toggleRegister}>
+                Registre-se
+              </Button>
             </div>
           </div>
-        </div>
-      </div>
+        </StyledGridBox>
+      </StyledContainer>
       <Modal
         title="Cadastre-se"
         isOpen={isRegisterOpen}
@@ -43,6 +50,6 @@ export const Home = () => {
       <Modal title="Login" isOpen={isLoginOpen} toggle={toggleLogin}>
         <LoginForm />
       </Modal>
-    </main>
+    </StyledHomePage>
   );
 };

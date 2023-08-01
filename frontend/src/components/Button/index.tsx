@@ -1,15 +1,24 @@
+import { ReactNode } from 'react';
 import { StyledButton } from './style';
 
 interface IButtonProps {
-  text: string;
-  size: 'default' | 'medium';
-  color: 'blue' | 'gray';
+  children: ReactNode;
+  size: 'medium' | 'big';
   type: 'button' | 'reset' | 'submit' | undefined;
-  //   function?: () => void;
+  clickFunction?: () => void;
 }
 
-export const Button = ({ text, size, color, type }: IButtonProps) => (
-  <StyledButton color={color} size={size} type={type}>
-    {text}
+export const Button = ({
+  children,
+  size,
+  type,
+  clickFunction,
+}: IButtonProps) => (
+  <StyledButton
+    size={size}
+    type={type}
+    onClick={clickFunction ? () => clickFunction() : undefined}
+  >
+    {children}
   </StyledButton>
 );
