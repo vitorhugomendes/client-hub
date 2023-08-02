@@ -8,11 +8,13 @@ import {
   Delete,
   UseGuards,
   Request,
+  Headers,
 } from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
 
 @Controller('contacts')
 export class ContactsController {
@@ -25,8 +27,12 @@ export class ContactsController {
   }
 
   @Get()
-  findAll() {
-    return this.contactsService.findAll();
+  @UseGuards(JwtAuthGuard)
+  findByUser(@Headers() headers) {
+    const token: string = headers.authorization.slice(7);
+    const userId = jwtDecode<JwtPayload>(token).sub;
+
+    return this.contactsService.findByUser(userId);
   }
 
   @Get(':id')

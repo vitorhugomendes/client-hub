@@ -23,6 +23,10 @@ export class ContactsService {
     return contact;
   }
 
+  async findByUser(userId: string) {
+    return this.contactsRepository.findByUser(userId);
+  }
+
   async findAll() {
     return this.contactsRepository.findAll();
   }
