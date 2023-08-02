@@ -3,7 +3,7 @@ import { StyledContainer } from '../../styles/Container';
 import { useAuth } from '../../hooks/useAuth';
 
 export const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, contacts } = useAuth();
 
   return (
     <StyledDashboardPage>
@@ -20,7 +20,13 @@ export const Dashboard = () => {
             <button>Logout</button>
           </div>
           <ul className="clients-list">
-            <li></li>
+            {contacts?.map(({ name, email, phone }) => (
+              <li>
+                <h2>{name}</h2>
+                <h2>{email}</h2>
+                <h2>{phone}</h2>
+              </li>
+            ))}
           </ul>
         </main>
       </StyledContainer>
