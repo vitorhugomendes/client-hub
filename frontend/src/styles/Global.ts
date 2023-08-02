@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
     text-decoration: none;
   }
 
-  body, html, main {
+  body, html {
     height: 100%;
     box-sizing: border-box;
     background-color: #f4f4f4;

@@ -1,20 +1,29 @@
+import { StyledDashboardPage } from './style';
+import { StyledContainer } from '../../styles/Container';
+import { useAuth } from '../../hooks/useAuth';
+
 export const Dashboard = () => {
+  const { user } = useAuth();
+
   return (
-    <>
-      <header>
-        <div>
+    <StyledDashboardPage>
+      <StyledContainer>
+        <header>
+          <button>logo</button>
           <button>logout</button>
-        </div>
-      </header>
-      <main>
-        <div>
-          alo
-          <h1>dashboard</h1>
-          <ul className="clients list">
+        </header>
+        <main>
+          <h1>Olá, {user?.name}</h1>
+          <div>
+            <button>Adicionar contato</button>
+            <button>Editar perfil</button>
+            <button>Logout</button>
+          </div>
+          <ul className="clients-list">
             <li></li>
           </ul>
-        </div>
-      </main>
-    </>
+        </main>
+      </StyledContainer>
+    </StyledDashboardPage>
   );
 };
