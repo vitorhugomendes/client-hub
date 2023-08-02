@@ -25,13 +25,24 @@ export const StyledModal = styled.div`
 
   .modal-container {
     animation: ${FadeIn} 0.5s;
-    display: block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 500px;
-    background: ${({ theme }) => theme.colors.primary};
+    padding: 15px;
+    gap: 10px;
+    border-radius: 8px;
+    background: ${({ theme }) => theme.colors.background};
+  }
 
-    @media (max-width: 450px) {
-      padding: 15px;
-    }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-header > button {
+    background-color: transparent;
+    cursor: pointer;
   }
 `;

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { StyledModal } from './style';
+import { CloseRounded } from '@mui/icons-material';
 
 interface IModalProps {
   children: ReactNode;
@@ -14,7 +15,12 @@ export const Modal = ({ children, isOpen, toggle, title }: IModalProps) => {
       {isOpen && (
         <StyledModal onClick={toggle}>
           <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-            <h1>{title}</h1>
+            <div className="modal-header">
+              <h1>{title}</h1>
+              <button onClick={toggle}>
+                <CloseRounded />
+              </button>
+            </div>
             {children}
           </div>
         </StyledModal>

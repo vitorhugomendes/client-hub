@@ -33,7 +33,9 @@ export const LoginForm = () => {
         register={register('password')}
         error={errors?.password?.message}
       />
-      <Button color="blue" size="default" text="Entrar" type="submit" />
+      <Button size="medium" type="submit">
+        Login
+      </Button>
     </StyledForm>
   );
 };

@@ -10,14 +10,14 @@ export const StyledTextField = styled(TextField)`
 
   label {
     &.Mui-focused {
-      color: ${({ theme }) => theme.colors.primary};
+      color: ${({ theme }) => theme.colors.text};
     }
   }
 
   .Mui-focused {
     fieldset {
-      border-color: ${({ theme }) => theme.colors.primary}!important;
-      outline-color: ${({ theme }) => theme.colors.primary}!important;
+      border-color: ${({ theme }) => theme.colors.primary};
+      outline-color: ${({ theme }) => theme.colors.primary};
     }
   }
 `;

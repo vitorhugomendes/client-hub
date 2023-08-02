@@ -54,7 +54,9 @@ export const RegisterForm = () => {
         register={register('confirmPassword')}
         error={errors?.confirmPassword?.message}
       />
-      <Button color="blue" size="default" text="Entrar" type="submit" />
+      <Button size="medium" type="submit">
+        Registrar
+      </Button>
     </StyledForm>
   );
 };
