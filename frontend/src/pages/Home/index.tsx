@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyledHomePage } from './style';
 import { StyledContainer } from '../../styles/Container';
-import { Modal, LoginForm, RegisterForm, Button } from '../../components';
+import { Modal, LoginForm, RegisterUserForm, Button } from '../../components';
 import { StyledTitle } from '../../styles/Typography';
 import Logo from '../../assets/client-icon-color.png';
 
@@ -43,7 +43,7 @@ export const Home = () => {
         isOpen={isRegisterOpen}
         toggle={toggleRegister}
       >
-        <RegisterForm />
+        <RegisterUserForm />
       </Modal>
       <Modal title="Login" isOpen={isLoginOpen} toggle={toggleLogin}>
         <LoginForm />

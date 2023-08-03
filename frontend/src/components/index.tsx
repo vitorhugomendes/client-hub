@@ -1,4 +1,4 @@
 export { Button } from './Button';
 export { LoginForm } from './Form/LoginForm';
-export { RegisterForm } from './Form/RegisterForm';
+export { RegisterUserForm } from './Form/RegisterUserForm';
 export { Modal } from './Modal';

@@ -7,8 +7,11 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import { LoginData } from '../components/Form/LoginForm/validator';
-import { RegisterData } from '../components/Form/RegisterForm/validator';
+import {
+  LoginData,
+  RegisterUserData,
+  EditUserData,
+} from '../components/Form/users.validators';
 import { api } from '../services/api';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import axios, { AxiosError } from 'axios';
@@ -36,9 +39,10 @@ interface IContacts {
 }
 
 interface IAuthContextValues {
-  signIn: (data: LoginData) => Promise<void>;
-  signUp: (data: RegisterData) => Promise<void>;
-  signOut: () => void;
+  login: (data: LoginData) => Promise<void>;
+  logout: () => void;
+  registerUser: (data: RegisterUserData) => Promise<void>;
+  editUser: (data: EditUserData) => Promise<void>;
   user: IUser | null;
   contacts: IContacts[] | null;
 }
@@ -55,7 +59,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const token = localStorage.getItem('client-hub:token') || null;
   const userId = token ? jwt_decode<JwtPayload>(token).sub : null;
 
-  const signIn = async (data: LoginData) => {
+  const login = async (data: LoginData) => {
     try {
       const response = await api.post('/login/', data);
 
@@ -77,10 +81,10 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
-  const signUp = async (data: RegisterData) => {
+  const registerUser = async (data: RegisterUserData) => {
     try {
-      await api.post('/users/', data);
-
+      const response = await api.post('/users/', data);
+      console.log(response);
       enqueueSnackbar('Registro feito com sucesso', { variant: 'default' });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
@@ -93,7 +97,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
-  const signOut = () => {
+  const logout = () => {
     window.localStorage.clear();
     setUser(null);
   };
@@ -113,6 +117,21 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }, [userId, enqueueSnackbar]);
 
+  const editUser = async (data: EditUserData) => {
+    try {
+      const response = await api.patch(`/users/${userId}/`, data);
+      // setUser({...user, response.data})
+    } catch (error: AxiosError | unknown) {
+      if (axios.isAxiosError(error)) {
+        enqueueSnackbar(`${error?.response?.data.message}`, {
+          variant: 'error',
+        });
+      } else {
+        console.log(error);
+      }
+    }
+  };
+
   const getContacts = useCallback(async () => {
     try {
       const response = await api.get(`/contacts/`);
@@ -131,7 +150,6 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   useEffect(() => {
     if (token) {
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
-      console.log(api.defaults.headers);
       getUser();
       getContacts();
       navigate('dashboard');
@@ -141,7 +159,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   }, [token, navigate, getUser, getContacts]);
 
   return (
-    <AuthContext.Provider value={{ signIn, signUp, signOut, user, contacts }}>
+    <AuthContext.Provider
+      value={{ login, logout, registerUser, editUser, user, contacts }}
+    >
       {children}
     </AuthContext.Provider>
   );

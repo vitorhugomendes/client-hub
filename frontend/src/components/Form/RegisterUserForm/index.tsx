@@ -1,24 +1,24 @@
 import { useForm } from 'react-hook-form';
 import { StyledForm } from '../style';
 import { Input } from '../Input';
-import { RegisterData, schema } from './validator';
+import { RegisterUserData, userRegisterSchema } from '../users.validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '../../../hooks/useAuth';
 import { Button } from '../../Button';
 
-export const RegisterForm = () => {
-  const { signUp } = useAuth();
+export const RegisterUserForm = () => {
+  const { registerUser } = useAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterData>({
-    resolver: zodResolver(schema),
+  } = useForm<RegisterUserData>({
+    resolver: zodResolver(userRegisterSchema),
   });
 
   return (
-    <StyledForm onSubmit={handleSubmit(signUp)}>
+    <StyledForm onSubmit={handleSubmit(registerUser)}>
       <Input
         label="Nome"
         id="name"
