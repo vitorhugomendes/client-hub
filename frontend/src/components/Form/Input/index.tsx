@@ -8,11 +8,26 @@ interface IInputProps {
   type: string;
   register: UseFormRegisterReturn<string>;
   error: string | undefined;
+  defaultValue?: string;
 }
 
-export const Input = ({ label, id, type, register, error }: IInputProps) => (
+export const Input = ({
+  label,
+  id,
+  type,
+  register,
+  error,
+  defaultValue,
+}: IInputProps) => (
   <fieldset>
-    <StyledTextField label={label} type={type} id={id} {...register} />
+    <StyledTextField
+      label={label}
+      type={type}
+      id={id}
+      {...register}
+      defaultValue={defaultValue}
+    />
+
     <StyledParagraph fontcolor="red">{error}</StyledParagraph>
   </fieldset>
 );

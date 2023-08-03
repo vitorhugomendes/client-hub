@@ -20,13 +20,32 @@ export const userRegisterSchema = userSchema.superRefine((data) => {
     };
 });
 
-export const userEditSchema = userSchema.partial().superRefine((data) => {
-  data.password === data.confirmPassword,
-    {
-      message: 'As senhas não são iguais',
-      path: ['confirmPassword'],
-    };
-});
+export const userEditSchema = userSchema
+  .omit({
+    password: true,
+    confirmPassword: true,
+  })
+  .extend({
+    password: z
+      .string()
+      .min(8)
+      .optional()
+      .or(z.literal(''))
+      .transform((value) => (value === '' ? undefined : value)),
+    confirmPassword: z
+      .string()
+      .min(8)
+      .optional()
+      .or(z.literal(''))
+      .transform((value) => (value === '' ? undefined : value)),
+  })
+  .superRefine((data) => {
+    data.password === data.confirmPassword,
+      {
+        message: 'As senhas não são iguais',
+        path: ['confirmPassword'],
+      };
+  });
 
 export const loginSchema = userSchema.pick({ email: true, password: true });
 

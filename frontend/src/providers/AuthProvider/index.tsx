@@ -12,6 +12,7 @@ import {
   RegisterUserData,
   EditUserData,
 } from '../../components/Form/users.validators';
+import { ContactData } from '../../components/Form/contacts.validators';
 import { api } from '../../services/api';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import axios, { AxiosError } from 'axios';
@@ -44,8 +45,10 @@ interface IAuthContextValues {
   logout: () => void;
   registerUser: (data: RegisterUserData) => Promise<void>;
   editUser: (data: EditUserData) => Promise<void>;
+  deleteUser: () => Promise<void>;
   user: IUser | null;
   contacts: IContacts[] | null;
+  registerContact: (data: ContactData) => Promise<void>;
 }
 
 export const AuthContext = createContext({} as IAuthContextValues);
@@ -60,7 +63,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const token = localStorage.getItem('client-hub:token') || null;
   const userId = token ? jwt_decode<JwtPayload>(token).sub : null;
 
-  const { toggleRegisterUser } = useModal();
+  const { toggleRegisterUser, toggleEditUser } = useModal();
 
   const login = async (data: LoginData) => {
     try {
@@ -124,7 +127,25 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const editUser = async (data: EditUserData) => {
     try {
       const response = await api.patch(`/users/${userId}/`, data);
-      // setUser({...user, response.data})
+      setUser(response.data);
+      toggleEditUser();
+      enqueueSnackbar('Dados editados com sucesso', { variant: 'success' });
+    } catch (error: AxiosError | unknown) {
+      if (axios.isAxiosError(error)) {
+        enqueueSnackbar(`${error?.response?.data.message}`, {
+          variant: 'error',
+        });
+      } else {
+        console.log(error);
+      }
+    }
+  };
+
+  const deleteUser = async () => {
+    try {
+      await api.delete(`/users/${userId}/`);
+      enqueueSnackbar('Usuário deletado com sucesso', { variant: 'warning' });
+      logout();
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
         enqueueSnackbar(`${error?.response?.data.message}`, {
@@ -151,6 +172,21 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }, [enqueueSnackbar]);
 
+  const registerContact = async (data: ContactData) => {
+    try {
+      const response = await api.post(`/contacts/`, data);
+      setContacts(response.data);
+    } catch (error: AxiosError | unknown) {
+      if (axios.isAxiosError(error)) {
+        enqueueSnackbar(`${error?.response?.data.message}`, {
+          variant: 'error',
+        });
+      } else {
+        console.log(error);
+      }
+    }
+  };
+
   useEffect(() => {
     if (token) {
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -164,7 +200,16 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   return (
     <AuthContext.Provider
-      value={{ login, logout, registerUser, editUser, user, contacts }}
+      value={{
+        login,
+        logout,
+        registerUser,
+        editUser,
+        deleteUser,
+        registerContact,
+        user,
+        contacts,
+      }}
     >
       {children}
     </AuthContext.Provider>
