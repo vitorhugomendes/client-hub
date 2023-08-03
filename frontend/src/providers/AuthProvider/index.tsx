@@ -12,7 +12,10 @@ import {
   RegisterUserData,
   EditUserData,
 } from '../../components/Form/users.validators';
-import { ContactData } from '../../components/Form/contacts.validators';
+import {
+  ContactData,
+  EditContactData,
+} from '../../components/Form/contacts.validators';
 import { api } from '../../services/api';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import axios, { AxiosError } from 'axios';
@@ -49,6 +52,8 @@ interface IAuthContextValues {
   user: IUser | null;
   contacts: IContacts[] | null;
   registerContact: (data: ContactData) => Promise<void>;
+  editContact: (data: EditContactData, contactId: string) => Promise<void>;
+  deleteContact: (contactId: string) => Promise<void>;
 }
 
 export const AuthContext = createContext({} as IAuthContextValues);
@@ -58,12 +63,18 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [user, setUser] = useState<IUser | null>(null);
-  const [contacts, setContacts] = useState<IContacts[] | null>(null);
+  const [contacts, setContacts] = useState<IContacts[] | []>([]);
 
   const token = localStorage.getItem('client-hub:token') || null;
   const userId = token ? jwt_decode<JwtPayload>(token).sub : null;
 
-  const { toggleRegisterUser, toggleEditUser } = useModal();
+  const {
+    toggleRegisterUser,
+    toggleEditUser,
+    toggleRegisterContact,
+    toggleEditContact,
+    toggleDeleteContact,
+  } = useModal();
 
   const login = async (data: LoginData) => {
     try {
@@ -175,7 +186,53 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const registerContact = async (data: ContactData) => {
     try {
       const response = await api.post(`/contacts/`, data);
-      setContacts(response.data);
+      setContacts([...contacts, response.data]);
+      toggleRegisterContact();
+      enqueueSnackbar('Contato registrado com sucesso', { variant: 'success' });
+    } catch (error: AxiosError | unknown) {
+      if (axios.isAxiosError(error)) {
+        enqueueSnackbar(`${error?.response?.data.message}`, {
+          variant: 'error',
+        });
+      } else {
+        console.log(error);
+      }
+    }
+  };
+
+  const editContact = async (data: EditContactData, contactId: string) => {
+    const contactIndex = contacts.findIndex(
+      (contact) => contact.id === contactId
+    );
+    const newContactList = contacts.filter(
+      (contact) => contact.id !== contactId
+    );
+    try {
+      const response = await api.patch(`/contacts/${contactId}`, data);
+
+      setContacts([
+        ...newContactList.slice(0, contactIndex),
+        response.data,
+        ...newContactList.slice(contactIndex),
+      ]);
+      toggleEditContact();
+      enqueueSnackbar('Contato editado com sucesso', { variant: 'info' });
+    } catch (error: AxiosError | unknown) {
+      if (axios.isAxiosError(error)) {
+        enqueueSnackbar(`${error?.response?.data.message}`, {
+          variant: 'error',
+        });
+      } else {
+        console.log(error);
+      }
+    }
+  };
+
+  const deleteContact = async (contactId: string) => {
+    try {
+      await api.delete(`/contacts/${contactId}`);
+      toggleDeleteContact();
+      enqueueSnackbar('Contato deletado com sucesso', { variant: 'info' });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
         enqueueSnackbar(`${error?.response?.data.message}`, {
@@ -206,9 +263,11 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         registerUser,
         editUser,
         deleteUser,
-        registerContact,
         user,
         contacts,
+        registerContact,
+        editContact,
+        deleteContact,
       }}
     >
       {children}

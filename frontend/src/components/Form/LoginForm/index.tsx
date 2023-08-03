@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { StyledForm } from '../style';
-import { Input } from '../Input';
+import { Input } from '../../Input';
 import { LoginData, loginSchema } from '../users.validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '../../../hooks/useAuth';

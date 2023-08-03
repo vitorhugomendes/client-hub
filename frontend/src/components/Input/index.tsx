@@ -1,6 +1,6 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { StyledTextField } from './style';
-import { StyledParagraph } from '../../../styles/Typography';
+import { StyledParagraph } from '../../styles/Typography';
 
 interface IInputProps {
   label: string;

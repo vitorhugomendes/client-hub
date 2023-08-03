@@ -7,11 +7,17 @@ import {
   Button,
   DeleteUserForm,
   RegisterContactForm,
+  DeleteContactForm,
 } from '../../components';
 import { useModal } from '../../hooks/useModal';
+import { EditContactForm } from '../../components/Form/EditContactForm';
+import { useState } from 'react';
+import { IContactInfo } from '../../components/Form/EditContactForm';
 
 export const Dashboard = () => {
   const { logout, user, contacts } = useAuth();
+  const [contactInfo, setContactInfo] = useState({} as IContactInfo);
+
   const {
     isEditUserOpen,
     toggleEditUser,
@@ -19,6 +25,10 @@ export const Dashboard = () => {
     toggleDeleteUser,
     isRegisterContactOpen,
     toggleRegisterContact,
+    isEditContactOpen,
+    toggleEditContact,
+    isDeleteContactOpen,
+    toggleDeleteContact,
   } = useModal();
 
   return (
@@ -50,11 +60,31 @@ export const Dashboard = () => {
             </Button>
           </div>
           <ul className="clients-list">
-            {contacts?.map(({ name, email, phone }) => (
-              <li>
-                <h2>{name}</h2>
-                <h2>{email}</h2>
-                <h2>{phone}</h2>
+            {contacts?.map((contact) => (
+              <li key={contact.id}>
+                <h2>{contact.name}</h2>
+                <h2>{contact.email}</h2>
+                <h2>{contact.phone}</h2>
+                <Button
+                  size="medium"
+                  type="button"
+                  clickFunction={() => {
+                    setContactInfo(contact);
+                    toggleEditContact();
+                  }}
+                >
+                  Editar contato
+                </Button>
+                <Button
+                  size="medium"
+                  clickFunction={() => {
+                    setContactInfo(contact);
+                    toggleDeleteContact();
+                  }}
+                  type="button"
+                >
+                  Deletar contato
+                </Button>
               </li>
             ))}
           </ul>
@@ -80,6 +110,20 @@ export const Dashboard = () => {
         toggle={toggleDeleteUser}
       >
         <DeleteUserForm />
+      </Modal>
+      <Modal
+        title="Editar contato"
+        isOpen={isEditContactOpen}
+        toggle={toggleEditContact}
+      >
+        <EditContactForm contactInfo={contactInfo} />
+      </Modal>
+      <Modal
+        title="Deletar contato"
+        isOpen={isDeleteContactOpen}
+        toggle={toggleDeleteContact}
+      >
+        <DeleteContactForm contactId={contactInfo.id} />
       </Modal>
     </StyledDashboardPage>
   );

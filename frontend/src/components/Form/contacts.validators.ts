@@ -10,4 +10,8 @@ export const contactSchema = z.object({
   phone: z.string().regex(phoneRegex, 'Insira um número válido'),
 });
 
+export const contactEditSchema = contactSchema.partial();
+
 export type ContactData = z.infer<typeof contactSchema>;
+
+export type EditContactData = z.infer<typeof contactEditSchema>;

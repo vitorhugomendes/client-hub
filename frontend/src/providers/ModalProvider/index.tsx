@@ -15,6 +15,10 @@ interface IModalContextValues {
   toggleDeleteUser: () => void;
   isRegisterContactOpen: boolean;
   toggleRegisterContact: () => void;
+  isEditContactOpen: boolean;
+  toggleEditContact: () => void;
+  isDeleteContactOpen: boolean;
+  toggleDeleteContact: () => void;
 }
 
 export const ModalContext = createContext({} as IModalContextValues);
@@ -50,6 +54,18 @@ export const ModalProvider = ({ children }: IModalProviderProps) => {
     setIsRegisterContactOpen(!isRegisterContactOpen);
   };
 
+  const [isEditContactOpen, setIsEditContactOpen] = useState(false);
+
+  const toggleEditContact = () => {
+    setIsEditContactOpen(!isEditContactOpen);
+  };
+
+  const [isDeleteContactOpen, setIsDeleteContactOpen] = useState(false);
+
+  const toggleDeleteContact = () => {
+    setIsDeleteContactOpen(!isDeleteContactOpen);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -63,6 +79,10 @@ export const ModalProvider = ({ children }: IModalProviderProps) => {
         toggleDeleteUser,
         isRegisterContactOpen,
         toggleRegisterContact,
+        isEditContactOpen,
+        toggleEditContact,
+        isDeleteContactOpen,
+        toggleDeleteContact,
       }}
     >
       {children}
