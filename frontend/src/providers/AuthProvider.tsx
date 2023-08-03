@@ -38,6 +38,7 @@ interface IContacts {
 interface IAuthContextValues {
   signIn: (data: LoginData) => Promise<void>;
   signUp: (data: RegisterData) => Promise<void>;
+  signOut: () => void;
   user: IUser | null;
   contacts: IContacts[] | null;
 }
@@ -92,6 +93,11 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   };
 
+  const signOut = () => {
+    window.localStorage.clear();
+    setUser(null);
+  };
+
   const getUser = useCallback(async () => {
     try {
       const response = await api.get(`/users/${userId}/`);
@@ -135,7 +141,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   }, [token, navigate, getUser, getContacts]);
 
   return (
-    <AuthContext.Provider value={{ signIn, signUp, user, contacts }}>
+    <AuthContext.Provider value={{ signIn, signUp, signOut, user, contacts }}>
       {children}
     </AuthContext.Provider>
   );

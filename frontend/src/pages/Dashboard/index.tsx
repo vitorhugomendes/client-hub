@@ -3,14 +3,14 @@ import { StyledContainer } from '../../styles/Container';
 import { useAuth } from '../../hooks/useAuth';
 
 export const Dashboard = () => {
-  const { user, contacts } = useAuth();
+  const { signOut, user, contacts } = useAuth();
 
   return (
     <StyledDashboardPage>
       <StyledContainer>
         <header>
           <button>logo</button>
-          <button>logout</button>
+          <button onClick={() => signOut()}>logout</button>
         </header>
         <main>
           <h1>Olá, {user?.name}</h1>
