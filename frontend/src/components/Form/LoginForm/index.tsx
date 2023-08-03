@@ -1,24 +1,24 @@
 import { useForm } from 'react-hook-form';
 import { StyledForm } from '../style';
-import { Input } from '../Input';
-import { LoginData, schema } from './validator';
+import { Input } from '../../Input';
+import { LoginData, loginSchema } from '../users.validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '../../../hooks/useAuth';
 import { Button } from '../../Button';
 
 export const LoginForm = () => {
-  const { signIn } = useAuth();
+  const { login } = useAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(loginSchema),
   });
 
   return (
-    <StyledForm onSubmit={handleSubmit(signIn)}>
+    <StyledForm onSubmit={handleSubmit(login)}>
       <Input
         label="Email"
         id="email"
@@ -33,7 +33,9 @@ export const LoginForm = () => {
         register={register('password')}
         error={errors?.password?.message}
       />
-      <Button color="blue" size="default" text="Entrar" type="submit" />
+      <Button size="medium" type="submit">
+        Login
+      </Button>
     </StyledForm>
   );
 };

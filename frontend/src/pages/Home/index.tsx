@@ -1,25 +1,44 @@
-import { LoginForm } from '../../components';
+import { useModal } from '../../hooks/useModal';
+import { StyledHomePage } from './style';
+import { StyledContainer } from '../../styles/Container';
+import { Modal, LoginForm, RegisterUserForm, Button } from '../../components';
+import { StyledTitle } from '../../styles/Typography';
+import Logo from '../../assets/client-icon-color.png';
 
 export const Home = () => {
+  const { isLoginOpen, toggleLogin, isRegisterUserOpen, toggleRegisterUser } =
+    useModal();
+
   return (
-    <main>
-      <div>
-        <div>
-          <div className="wheel"></div>
-          <div className="text-content">
-            <div className="logo"></div>
-            <div className="text">
-              <h1>title</h1>
-              <h2>description</h2>
-            </div>
-            <div className="buttons">
-              <button>register</button>
-              <button>login</button>
-              <LoginForm></LoginForm>
-            </div>
+    <StyledHomePage>
+      <StyledContainer>
+        <div className="logo-container">
+          <img src={Logo} alt="Client Hub Logo" />
+        </div>
+        <div className="text-content">
+          <StyledTitle tag="h1" fontSize="one" textAlign="center">
+            Client Hub
+          </StyledTitle>
+          <div className="buttons-container">
+            <Button size="big" type="button" clickFunction={toggleLogin}>
+              Login
+            </Button>
+            <Button size="big" type="button" clickFunction={toggleRegisterUser}>
+              Registre-se
+            </Button>
           </div>
         </div>
-      </div>
-    </main>
+      </StyledContainer>
+      <Modal
+        title="Cadastre-se"
+        isOpen={isRegisterUserOpen}
+        toggle={toggleRegisterUser}
+      >
+        <RegisterUserForm />
+      </Modal>
+      <Modal title="Login" isOpen={isLoginOpen} toggle={toggleLogin}>
+        <LoginForm />
+      </Modal>
+    </StyledHomePage>
   );
 };
