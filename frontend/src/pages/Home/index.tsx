@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useModal } from '../../hooks/useModal';
 import { StyledHomePage } from './style';
 import { StyledContainer } from '../../styles/Container';
 import { Modal, LoginForm, RegisterUserForm, Button } from '../../components';
@@ -6,17 +6,8 @@ import { StyledTitle } from '../../styles/Typography';
 import Logo from '../../assets/client-icon-color.png';
 
 export const Home = () => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-
-  const toggleLogin = () => {
-    setIsLoginOpen(!isLoginOpen);
-  };
-
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-
-  const toggleRegister = () => {
-    setIsRegisterOpen(!isRegisterOpen);
-  };
+  const { isLoginOpen, toggleLogin, isRegisterUserOpen, toggleRegisterUser } =
+    useModal();
 
   return (
     <StyledHomePage>
@@ -32,7 +23,7 @@ export const Home = () => {
             <Button size="big" type="button" clickFunction={toggleLogin}>
               Login
             </Button>
-            <Button size="big" type="button" clickFunction={toggleRegister}>
+            <Button size="big" type="button" clickFunction={toggleRegisterUser}>
               Registre-se
             </Button>
           </div>
@@ -40,8 +31,8 @@ export const Home = () => {
       </StyledContainer>
       <Modal
         title="Cadastre-se"
-        isOpen={isRegisterOpen}
-        toggle={toggleRegister}
+        isOpen={isRegisterUserOpen}
+        toggle={toggleRegisterUser}
       >
         <RegisterUserForm />
       </Modal>

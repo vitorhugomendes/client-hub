@@ -11,11 +11,12 @@ import {
   LoginData,
   RegisterUserData,
   EditUserData,
-} from '../components/Form/users.validators';
-import { api } from '../services/api';
+} from '../../components/Form/users.validators';
+import { api } from '../../services/api';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import axios, { AxiosError } from 'axios';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
+import { useModal } from '../../hooks/useModal';
 
 interface IAuthProviderProps {
   children: ReactNode;
@@ -59,6 +60,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const token = localStorage.getItem('client-hub:token') || null;
   const userId = token ? jwt_decode<JwtPayload>(token).sub : null;
 
+  const { toggleRegisterUser } = useModal();
+
   const login = async (data: LoginData) => {
     try {
       const response = await api.post('/login/', data);
@@ -83,9 +86,10 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const registerUser = async (data: RegisterUserData) => {
     try {
-      const response = await api.post('/users/', data);
-      console.log(response);
-      enqueueSnackbar('Registro feito com sucesso', { variant: 'default' });
+      await api.post('/users/', data);
+      navigate('/');
+      toggleRegisterUser();
+      enqueueSnackbar('Registro feito com sucesso', { variant: 'success' });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
         enqueueSnackbar(`${error?.response?.data.message}`, {

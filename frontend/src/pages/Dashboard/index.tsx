@@ -1,6 +1,6 @@
+import { useAuth } from '../../hooks/useAuth';
 import { StyledDashboardPage } from './style';
 import { StyledContainer } from '../../styles/Container';
-import { useAuth } from '../../hooks/useAuth';
 
 export const Dashboard = () => {
   const { logout, user, contacts } = useAuth();

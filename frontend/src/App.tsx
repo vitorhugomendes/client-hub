@@ -1,7 +1,7 @@
 import { GlobalStyles } from './styles/Global';
 import { SnackbarProvider } from 'notistack';
 import { StyledMaterialDesignContent } from './styles/Notistack';
-import { AuthProvider } from './providers/AuthProvider';
+import { ModalProvider, AuthProvider } from './providers/index';
 import { RoutesMain } from './routes';
 
 export const App = () => {
@@ -20,9 +20,11 @@ export const App = () => {
           horizontal: 'center',
         }}
       >
-        <AuthProvider>
-          <RoutesMain />
-        </AuthProvider>
+        <ModalProvider>
+          <AuthProvider>
+            <RoutesMain />
+          </AuthProvider>
+        </ModalProvider>
       </SnackbarProvider>
     </>
   );
