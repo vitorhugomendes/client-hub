@@ -11,7 +11,7 @@ export const Home = () => {
 
   return (
     <StyledHomePage>
-      <StyledContainer>
+      <StyledContainer containerWidth={500}>
         <div className="logo-container">
           <img src={Logo} alt="Client Hub Logo" />
         </div>

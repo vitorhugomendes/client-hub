@@ -84,8 +84,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
       localStorage.setItem('client-hub:token', token);
-
-      enqueueSnackbar('Login feito com sucesso', { variant: 'default' });
+      enqueueSnackbar('Login feito com sucesso', { variant: 'success' });
       navigate('dashboard');
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
@@ -229,9 +228,13 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   };
 
   const deleteContact = async (contactId: string) => {
+    const newContactList = contacts.filter(
+      (contact) => contact.id !== contactId
+    );
     try {
       await api.delete(`/contacts/${contactId}`);
       toggleDeleteContact();
+      setContacts(newContactList);
       enqueueSnackbar('Contato deletado com sucesso', { variant: 'info' });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
