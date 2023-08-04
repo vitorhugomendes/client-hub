@@ -17,7 +17,10 @@ $ npm run dev
 ```
 
 ## Tecnologias utilizadas
-* NodeJs
+* React
 * Typescript
-* NestJs
-* Prisma
+* StyledComponents
+* Axios
+* Zod
+* React Router Dom
+* React Hook Form
