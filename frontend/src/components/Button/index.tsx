@@ -3,7 +3,7 @@ import { StyledButton } from './style';
 
 interface IButtonProps {
   children: ReactNode;
-  size: 'medium' | 'big';
+  size: 'small' | 'medium' | 'big';
   type: 'button' | 'reset' | 'submit' | undefined;
   clickFunction?: () => void;
 }

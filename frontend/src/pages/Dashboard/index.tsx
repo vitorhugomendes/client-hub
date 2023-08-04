@@ -1,18 +1,25 @@
-import { useAuth } from '../../hooks/useAuth';
+import { useState } from 'react';
 import { StyledDashboardPage } from './style';
 import { StyledContainer } from '../../styles/Container';
+import Logo from '../../assets/client-icon-color.png';
+import { LogoutRounded } from '@mui/icons-material';
+import {
+  StyledTitle,
+  StyledCaption,
+  StyledParagraph,
+} from '../../styles/Typography';
+import { useAuth } from '../../hooks/useAuth';
+import { useModal } from '../../hooks/useModal';
 import {
   Modal,
   EditUserForm,
   Button,
   DeleteUserForm,
   RegisterContactForm,
+  EditContactForm,
   DeleteContactForm,
   Relatory,
 } from '../../components';
-import { useModal } from '../../hooks/useModal';
-import { EditContactForm } from '../../components/Form/EditContactForm';
-import { useState } from 'react';
 import { IContactInfo } from '../../components/Form/EditContactForm';
 
 export const Dashboard = () => {
@@ -38,62 +45,102 @@ export const Dashboard = () => {
     <StyledDashboardPage>
       <StyledContainer>
         <header>
-          <button>logo</button>
-          <button onClick={() => logout()}>logout</button>
+          <div className="logo-container">
+            <img src={Logo} alt="Client Hub Logo" />
+          </div>
+          <button
+            className="logout-button"
+            onClick={() => logout()}
+            data-hover="Logout"
+          >
+            <LogoutRounded />
+          </button>
         </header>
         <main>
-          <h1>Olá, {user?.name}</h1>
-          <div>
-            <Button
-              size="medium"
-              clickFunction={toggleRegisterContact}
-              type="button"
+          <section className="user-section">
+            <StyledTitle fontFamily="two" fontSize="two" tag="h2">
+              Olá, {user?.name}
+            </StyledTitle>
+            <div className="user-buttons-container">
+              <Button
+                size="medium"
+                clickFunction={toggleRegisterContact}
+                type="button"
+              >
+                Adicionar contato
+              </Button>
+              <Button
+                size="medium"
+                clickFunction={toggleRelatory}
+                type="button"
+              >
+                Gerar Relatório
+              </Button>
+              <Button
+                size="medium"
+                clickFunction={toggleEditUser}
+                type="button"
+              >
+                Editar perfil
+              </Button>
+              <Button
+                size="medium"
+                clickFunction={toggleDeleteUser}
+                type="button"
+              >
+                Deletar conta
+              </Button>
+            </div>
+          </section>
+
+          <section className="contacts-section">
+            <StyledTitle
+              fontFamily="one"
+              fontSize="two"
+              tag="h3"
+              textAlign="center"
             >
-              Adicionar contato
-            </Button>
-            <Button size="medium" clickFunction={toggleRelatory} type="button">
-              Gerar Relatório
-            </Button>
-            <Button size="medium" clickFunction={toggleEditUser} type="button">
-              Editar perfil
-            </Button>
-            <Button
-              size="medium"
-              clickFunction={toggleDeleteUser}
-              type="button"
-            >
-              Deletar conta
-            </Button>
-          </div>
-          <ul className="clients-list">
-            {contacts?.map((contact) => (
-              <li key={contact.id}>
-                <h2>{contact.name}</h2>
-                <h2>{contact.email}</h2>
-                <h2>{contact.phone}</h2>
-                <Button
-                  size="medium"
-                  type="button"
-                  clickFunction={() => {
-                    setContactInfo(contact);
-                    toggleEditContact();
-                  }}
-                >
-                  Editar contato
-                </Button>
-                <Button
-                  size="medium"
-                  clickFunction={() => {
-                    setContactInfo(contact);
-                    toggleDeleteContact();
-                  }}
-                  type="button"
-                >
-                  Deletar contato
-                </Button>
-              </li>
-            ))}
-          </ul>
+              Sua lista de contatos
+            </StyledTitle>
+            <ul className="contacts-list">
+              {contacts?.map((contact) => (
+                <li className="contacts-card" key={contact.id}>
+                  <StyledTitle fontFamily="two" fontSize="three" tag="h3">
+                    {contact.name}
+                  </StyledTitle>
+                  <StyledParagraph>
+                    Email: <StyledCaption>{contact.email}</StyledCaption>
+                  </StyledParagraph>
+
+                  <StyledParagraph>
+                    Telefone: <StyledCaption>{contact.phone}</StyledCaption>
+                  </StyledParagraph>
+                  <div className="contacts-buttons-container">
+                    <Button
+                      size="small"
+                      type="button"
+                      clickFunction={() => {
+                        setContactInfo(contact);
+                        toggleEditContact();
+                      }}
+                    >
+                      Editar contato
+                    </Button>
+                    <Button
+                      size="small"
+                      clickFunction={() => {
+                        setContactInfo(contact);
+                        toggleDeleteContact();
+                      }}
+                      type="button"
+                    >
+                      Deletar contato
+                    </Button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
         </main>
       </StyledContainer>
       <Modal

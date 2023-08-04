@@ -1,23 +1,44 @@
 import { StyledRelatory } from './style';
 import { useAuth } from '../../hooks/useAuth';
+import {
+  StyledParagraph,
+  StyledTitle,
+  StyledCaption,
+} from '../../styles/Typography';
 
 export const Relatory = () => {
   const { user, contacts } = useAuth();
   return (
     <StyledRelatory>
       <div>
-        <h1>Relatório Client Hub</h1>
         <div>
-          <h3>{user?.name}</h3>
-          <h3>{user?.phone}</h3>
-          <h3>{user?.email}</h3>
+          <StyledTitle fontFamily="two" fontSize="three" tag="h3">
+            {user?.name}
+          </StyledTitle>
+          <StyledParagraph>
+            Email: <StyledCaption>{user?.email}</StyledCaption>
+          </StyledParagraph>
+
+          <StyledParagraph>
+            Telefone: <StyledCaption>{user?.phone}</StyledCaption>
+          </StyledParagraph>
         </div>
-        <ul>
+        <StyledTitle fontFamily="one" fontSize="three" tag="h3">
+          Contatos
+        </StyledTitle>
+        <ul className="relatory-contacts-list">
           {contacts?.map((contact) => (
-            <li>
-              <h2>{contact.name}</h2>
-              <h2>{contact.email}</h2>
-              <h2>{contact.phone}</h2>
+            <li className="relatory-contacts-card" key={contact.id}>
+              <StyledParagraph>
+                Nome: <StyledCaption>{contact.name}</StyledCaption>
+              </StyledParagraph>
+              <StyledParagraph>
+                Email: <StyledCaption>{contact.email}</StyledCaption>
+              </StyledParagraph>
+
+              <StyledParagraph>
+                Telefone: <StyledCaption>{contact.phone}</StyledCaption>
+              </StyledParagraph>
             </li>
           ))}
         </ul>

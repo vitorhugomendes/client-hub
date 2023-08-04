@@ -1,11 +1,10 @@
 import styled, { css } from 'styled-components';
 
 interface IStyledButtonProps {
-  size: 'medium' | 'big';
+  size: 'small' | 'medium' | 'big';
 }
 
 export const StyledButton = styled.button<IStyledButtonProps>`
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -30,6 +29,11 @@ export const StyledButton = styled.button<IStyledButtonProps>`
 
   ${({ size }) => {
     switch (size) {
+      case 'small':
+        return css`
+          padding: 0 15px;
+          height: 40px;
+        `;
       case 'medium':
         return css`
           padding: 0 20px;
