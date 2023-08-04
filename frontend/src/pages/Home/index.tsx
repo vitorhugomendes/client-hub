@@ -11,12 +11,17 @@ export const Home = () => {
 
   return (
     <StyledHomePage>
-      <StyledContainer>
+      <StyledContainer containerWidth={500}>
         <div className="logo-container">
           <img src={Logo} alt="Client Hub Logo" />
         </div>
         <div className="text-content">
-          <StyledTitle tag="h1" fontSize="one" textAlign="center">
+          <StyledTitle
+            fontFamily="two"
+            tag="h1"
+            fontSize="one"
+            textAlign="center"
+          >
             Client Hub
           </StyledTitle>
           <div className="buttons-container">

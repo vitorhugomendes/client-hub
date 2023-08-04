@@ -3,11 +3,12 @@ import { BaseTypography } from '../components/Typography';
 
 interface IStyledTitleProps {
   fontSize: 'one' | 'two' | 'three' | 'four';
+  fontFamily: 'one' | 'two';
   textAlign?: 'center' | 'left' | 'right';
 }
 
 interface IStyledParagraphProps {
-  fontcolor?: 'gray' | 'red';
+  $fontColor?: 'gray' | 'red';
   textAlign?: 'center' | 'left' | 'right';
 }
 
@@ -17,6 +18,19 @@ export const StyledTitle = styled(BaseTypography)<IStyledTitleProps>`
   line-height: 1.6;
   text-align: ${({ textAlign }) => textAlign};
   color: ${({ theme }) => theme.colors.text};
+
+  ${({ fontFamily, theme }) => {
+    switch (fontFamily) {
+      case 'one':
+        return css`
+          font-family: ${theme.fonts.primary};
+        `;
+      case 'two':
+        return css`
+          font-family: ${theme.fonts.secondary};
+        `;
+    }
+  }}
 
   ${({ fontSize }) => {
     switch (fontSize) {
@@ -39,8 +53,8 @@ export const StyledTitle = styled(BaseTypography)<IStyledTitleProps>`
 
       case 'four':
         return css`
-          font-size: 1rem;
-          font-weight: 400;
+          font-size: 1.2rem;
+          font-weight: 600;
         `;
     }
   }};
@@ -52,9 +66,10 @@ export const StyledParagraph = styled.p<IStyledParagraphProps>`
   font-weight: 400;
   line-height: 1.8;
   text-align: ${({ textAlign }) => textAlign};
+  font-weight: 600;
 
-  ${({ fontcolor, theme }) => {
-    switch (fontcolor) {
+  ${({ $fontColor, theme }) => {
+    switch ($fontColor) {
       case 'gray':
         return css`
           color: ${theme.colors.gray1};
@@ -69,14 +84,11 @@ export const StyledParagraph = styled.p<IStyledParagraphProps>`
         `;
     }
   }}
-
-  strong {
-    font-weight: 600;
-  }
 `;
 
 export const StyledCaption = styled.span`
   font-family: ${({ theme }) => theme.fonts.primary};
+  color: ${({ theme }) => theme.colors.gray1};
   font-size: 0.75rem;
   font-weight: 400;
 `;

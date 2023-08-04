@@ -6,4 +6,5 @@ export { DeleteUserForm } from './Form/DeleteUserForm';
 export { RegisterContactForm } from './Form/RegisterContactForm';
 export { EditContactForm } from './Form/EditContactForm';
 export { DeleteContactForm } from './Form/DeleteContactForm';
+export { Relatory } from './Relatory';
 export { Modal } from './Modal';

@@ -12,7 +12,7 @@ export const DeleteContactForm = ({ contactId }: IDeleteContactForm) => {
 
   return (
     <StyledForm>
-      <StyledTitle fontSize="two" tag="h3">
+      <StyledTitle fontFamily="one" fontSize="two" tag="h3">
         Tem certeza que deseja excluir esse contato?
       </StyledTitle>
       <Button

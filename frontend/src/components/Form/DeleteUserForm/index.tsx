@@ -8,7 +8,7 @@ export const DeleteUserForm = () => {
 
   return (
     <StyledForm>
-      <StyledTitle fontSize="two" tag="h3">
+      <StyledTitle fontFamily="two" fontSize="two" tag="h3">
         Tem certeza que deseja deletar essa conta?
       </StyledTitle>
       <StyledParagraph>Essa ação é irreversível</StyledParagraph>

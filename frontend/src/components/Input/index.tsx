@@ -28,6 +28,6 @@ export const Input = ({
       defaultValue={defaultValue}
     />
 
-    <StyledParagraph fontcolor="red">{error}</StyledParagraph>
+    <StyledParagraph $fontColor="red">{error}</StyledParagraph>
   </fieldset>
 );
