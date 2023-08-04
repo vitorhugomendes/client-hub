@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 interface IStyledButtonProps {
   size: 'small' | 'medium' | 'big';
+  $irreversible?: 'true';
 }
 
 export const StyledButton = styled.button<IStyledButtonProps>`
@@ -16,13 +17,15 @@ export const StyledButton = styled.button<IStyledButtonProps>`
   border-radius: 8px;
 
   transition: 0.4s
-    ${({ theme }) => {
+    ${({ $irreversible, theme }) => {
       return css`
         font-family: ${theme.fonts.primary};
         color: ${theme.colors.background};
         background: ${theme.colors.secondary};
         &:hover {
-          background: ${theme.colors.primary};
+          background: ${$irreversible
+            ? theme.colors.feedback.negative
+            : theme.colors.primary};
         }
       `;
     }};

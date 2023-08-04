@@ -8,11 +8,23 @@ export const DeleteUserForm = () => {
 
   return (
     <StyledForm>
-      <StyledTitle fontFamily="two" fontSize="two" tag="h3">
+      <StyledTitle
+        $fontFamily="one"
+        $fontSize="four"
+        tag="h3"
+        $textAlign="center"
+      >
         Tem certeza que deseja deletar essa conta?
       </StyledTitle>
-      <StyledParagraph>Essa ação é irreversível</StyledParagraph>
-      <Button size="medium" type="button" clickFunction={deleteUser}>
+      <StyledParagraph $textAlign="center">
+        Essa ação é irreversível
+      </StyledParagraph>
+      <Button
+        size="medium"
+        type="button"
+        clickFunction={deleteUser}
+        $irreversible="true"
+      >
         Deletar
       </Button>
     </StyledForm>
