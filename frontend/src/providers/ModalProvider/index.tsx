@@ -19,6 +19,8 @@ interface IModalContextValues {
   toggleEditContact: () => void;
   isDeleteContactOpen: boolean;
   toggleDeleteContact: () => void;
+  isRelatoryOpen: boolean;
+  toggleRelatory: () => void;
 }
 
 export const ModalContext = createContext({} as IModalContextValues);
@@ -66,6 +68,12 @@ export const ModalProvider = ({ children }: IModalProviderProps) => {
     setIsDeleteContactOpen(!isDeleteContactOpen);
   };
 
+  const [isRelatoryOpen, setIsRelatoryOpen] = useState(false);
+
+  const toggleRelatory = () => {
+    setIsRelatoryOpen(!isRelatoryOpen);
+  };
+
   return (
     <ModalContext.Provider
       value={{
@@ -83,6 +91,8 @@ export const ModalProvider = ({ children }: IModalProviderProps) => {
         toggleEditContact,
         isDeleteContactOpen,
         toggleDeleteContact,
+        isRelatoryOpen,
+        toggleRelatory,
       }}
     >
       {children}

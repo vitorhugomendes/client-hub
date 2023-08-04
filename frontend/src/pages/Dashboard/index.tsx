@@ -8,6 +8,7 @@ import {
   DeleteUserForm,
   RegisterContactForm,
   DeleteContactForm,
+  Relatory,
 } from '../../components';
 import { useModal } from '../../hooks/useModal';
 import { EditContactForm } from '../../components/Form/EditContactForm';
@@ -29,6 +30,8 @@ export const Dashboard = () => {
     toggleEditContact,
     isDeleteContactOpen,
     toggleDeleteContact,
+    isRelatoryOpen,
+    toggleRelatory,
   } = useModal();
 
   return (
@@ -47,6 +50,9 @@ export const Dashboard = () => {
               type="button"
             >
               Adicionar contato
+            </Button>
+            <Button size="medium" clickFunction={toggleRelatory} type="button">
+              Gerar Relatório
             </Button>
             <Button size="medium" clickFunction={toggleEditUser} type="button">
               Editar perfil
@@ -96,6 +102,13 @@ export const Dashboard = () => {
         toggle={toggleRegisterContact}
       >
         <RegisterContactForm />
+      </Modal>
+      <Modal
+        title="Relatório de usuário"
+        isOpen={isRelatoryOpen}
+        toggle={toggleRelatory}
+      >
+        <Relatory />
       </Modal>
       <Modal
         title="Editar usuário"
