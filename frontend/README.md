@@ -1,6 +1,16 @@
-## <h1 align=center>Client Hub Frontend</h1>
+## <h1 align=center>:open_book: Client Hub Frontend</h1>
 
 Com uma interface simples e direta, a aplicação tem o objetivo de providenciar uma navegação intuitiva para o usuário se cadastrar, logar e conseguir utilizar as funcionalidades da lista de contatos.
+
+
+## :computer: Tecnologias utilizadas
+* React
+* Typescript
+* StyledComponents
+* Axios
+* Zod
+* React Router Dom
+* React Hook Form
 
 ## Instalação
 
@@ -16,11 +26,4 @@ $ npm install
 $ npm run dev
 ```
 
-## Tecnologias utilizadas
-* React
-* Typescript
-* StyledComponents
-* Axios
-* Zod
-* React Router Dom
-* React Hook Form
+
