@@ -1,4 +1,4 @@
-## <h1 align=center>Client Hub API</h1>
+## :blue_book: <h1 align=center>Client Hub API</h1>
 Feita com o propósito de gerenciar usuários e seus contatos, essa api foi desenvolvida com as seguintes funcionalidades:
 
 * Cadastro de usuários
@@ -21,6 +21,12 @@ Feita com o propósito de gerenciar usuários e seus contatos, essa api foi dese
   * Edita as informações daquele contato específico.
 * Deleção de contatos
   * Deleta o contato, removendo-o do sistema.
+ 
+## :computer: Tecnologias Utilizadas
+* NodeJs
+* Typescript
+* NestJs
+* Prisma
 
 ## Instalação
 
@@ -46,12 +52,6 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
-
-## Tecnologias Utilizadas
-* NodeJs
-* Typescript
-* NestJs
-* Prisma
 
 ## Endpoints: Rotas que não precisam de autorização
 
