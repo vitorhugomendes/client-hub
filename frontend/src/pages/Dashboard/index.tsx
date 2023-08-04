@@ -50,7 +50,7 @@ export const Dashboard = () => {
           </div>
           <button
             className="logout-button"
-            onClick={() => logout()}
+            onClick={logout}
             data-hover="Logout"
           >
             <LogoutRounded />
