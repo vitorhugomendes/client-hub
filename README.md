@@ -4,13 +4,13 @@ Nesse projeto FullStack é possível se registrar para criar, editar e deletar c
 
 Esse é um monorepo, contendo tanto a parte do backend quanto do frontend. Os detalhes de cada parte e as intruções para instalação estão no readMe de cada parte, para acessá-los basta clicar nos títulos abaixo.
 
-# :raised_back_of_hand: [Backend](https://github.com/vitorhugomendes/client-hub/tree/71f686c1f421fe735d2d8e2afef82e61931f418a/backend#readme)
+# :raised_back_of_hand: [Backend](https://github.com/vitorhugomendes/client-hub/blob/main/backend/README.md)
 Tecnologias usadas:
 * NodeJs
 * Typescript
 * NestJs
 * Prisma
-# :wave: [Frontend](https://github.com/vitorhugomendes/client-hub/tree/71f686c1f421fe735d2d8e2afef82e61931f418a/frontend)
+# :wave: [Frontend](https://github.com/vitorhugomendes/client-hub/blob/main/frontend/README.md)
 Tecnologias usadas:
 * React
 * Typescript
