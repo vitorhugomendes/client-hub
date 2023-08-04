@@ -12,7 +12,7 @@ export const Relatory = () => {
     <StyledRelatory>
       <div>
         <div>
-          <StyledTitle fontFamily="two" fontSize="three" tag="h3">
+          <StyledTitle $fontFamily="two" $fontSize="two" tag="h3">
             {user?.name}
           </StyledTitle>
           <StyledParagraph>
@@ -23,7 +23,7 @@ export const Relatory = () => {
             Telefone: <StyledCaption>{user?.phone}</StyledCaption>
           </StyledParagraph>
         </div>
-        <StyledTitle fontFamily="one" fontSize="three" tag="h3">
+        <StyledTitle $fontFamily="one" $fontSize="four" tag="h4">
           Contatos
         </StyledTitle>
         <ul className="relatory-contacts-list">

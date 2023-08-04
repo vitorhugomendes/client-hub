@@ -58,7 +58,7 @@ export const Dashboard = () => {
         </header>
         <main>
           <section className="user-section">
-            <StyledTitle fontFamily="two" fontSize="two" tag="h2">
+            <StyledTitle $fontFamily="two" $fontSize="two" tag="h2">
               Olá, {user?.name}
             </StyledTitle>
             <div className="user-buttons-container">
@@ -95,51 +95,57 @@ export const Dashboard = () => {
 
           <section className="contacts-section">
             <StyledTitle
-              fontFamily="one"
-              fontSize="two"
+              $fontFamily="one"
+              $fontSize="two"
               tag="h3"
-              textAlign="center"
+              $textAlign="center"
             >
               Sua lista de contatos
             </StyledTitle>
-            <ul className="contacts-list">
-              {contacts?.map((contact) => (
-                <li className="contacts-card" key={contact.id}>
-                  <StyledTitle fontFamily="two" fontSize="three" tag="h3">
-                    {contact.name}
-                  </StyledTitle>
-                  <StyledParagraph>
-                    Email: <StyledCaption>{contact.email}</StyledCaption>
-                  </StyledParagraph>
+            {contacts?.length === 0 ? (
+              <StyledTitle $fontFamily="one" $fontSize="four" tag="h4">
+                Nenhum contato adicionado
+              </StyledTitle>
+            ) : (
+              <ul className="contacts-list">
+                {contacts?.map((contact) => (
+                  <li className="contacts-card" key={contact.id}>
+                    <StyledTitle $fontFamily="two" $fontSize="three" tag="h3">
+                      {contact.name}
+                    </StyledTitle>
+                    <StyledParagraph>
+                      Email: <StyledCaption>{contact.email}</StyledCaption>
+                    </StyledParagraph>
 
-                  <StyledParagraph>
-                    Telefone: <StyledCaption>{contact.phone}</StyledCaption>
-                  </StyledParagraph>
-                  <div className="contacts-buttons-container">
-                    <Button
-                      size="small"
-                      type="button"
-                      clickFunction={() => {
-                        setContactInfo(contact);
-                        toggleEditContact();
-                      }}
-                    >
-                      Editar contato
-                    </Button>
-                    <Button
-                      size="small"
-                      clickFunction={() => {
-                        setContactInfo(contact);
-                        toggleDeleteContact();
-                      }}
-                      type="button"
-                    >
-                      Deletar contato
-                    </Button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    <StyledParagraph>
+                      Telefone: <StyledCaption>{contact.phone}</StyledCaption>
+                    </StyledParagraph>
+                    <div className="contacts-buttons-container">
+                      <Button
+                        size="small"
+                        type="button"
+                        clickFunction={() => {
+                          setContactInfo(contact);
+                          toggleEditContact();
+                        }}
+                      >
+                        Editar contato
+                      </Button>
+                      <Button
+                        size="small"
+                        clickFunction={() => {
+                          setContactInfo(contact);
+                          toggleDeleteContact();
+                        }}
+                        type="button"
+                      >
+                        Deletar contato
+                      </Button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </section>
         </main>
       </StyledContainer>

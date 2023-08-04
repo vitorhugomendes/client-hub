@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface IStyledContainerProps {
-  containerWidth?: number;
+  $containerwidth?: number;
 }
 
 export const StyledContainer = styled.div<IStyledContainerProps>`
@@ -16,6 +16,6 @@ export const StyledContainer = styled.div<IStyledContainerProps>`
   border-radius: 30px;
   padding: 15px 32px;
   margin: 15px auto;
-  max-width: ${({ containerWidth }) => containerWidth || 1337}px;
+  max-width: ${({ $containerwidth }) => $containerwidth || 1337}px;
   background-color: ${({ theme }) => theme.colors.background};
 `;

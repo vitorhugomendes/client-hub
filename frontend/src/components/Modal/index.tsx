@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { StyledModal } from './style';
+import { StyledTitle } from '../../styles/Typography';
 import { CloseRounded } from '@mui/icons-material';
 
 interface IModalProps {
@@ -16,7 +17,9 @@ export const Modal = ({ children, isOpen, toggle, title }: IModalProps) => {
         <StyledModal onClick={toggle}>
           <div className="modal-container" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h1>{title}</h1>
+              <StyledTitle $fontFamily="one" $fontSize="three" tag="h2">
+                {title}
+              </StyledTitle>
               <button onClick={toggle}>
                 <CloseRounded />
               </button>
