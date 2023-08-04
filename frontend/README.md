@@ -15,3 +15,9 @@ $ npm install
 # development
 $ npm run dev
 ```
+
+## Tecnologias utilizadas
+* NodeJs
+* Typescript
+* NestJs
+* Prisma
