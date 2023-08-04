@@ -1,4 +1,4 @@
-## :blue_book: <h1 align=center>Client Hub API</h1>
+## <h1 align=center>:blue_book: Client Hub API</h1>
 Feita com o propósito de gerenciar usuários e seus contatos, essa api foi desenvolvida com as seguintes funcionalidades:
 
 * Cadastro de usuários
