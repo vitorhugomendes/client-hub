@@ -47,6 +47,12 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Tecnologias Utilizadas
+* NodeJs
+* Typescript
+* NestJs
+* Prisma
+
 ## Endpoints: Rotas que não precisam de autorização
 
 ## <h3 align=center>Criação de usuário</h3>
