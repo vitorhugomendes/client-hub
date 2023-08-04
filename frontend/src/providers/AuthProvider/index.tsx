@@ -70,7 +70,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const {
     toggleRegisterUser,
+    toggleLogin,
     toggleEditUser,
+    toggleDeleteUser,
     toggleRegisterContact,
     toggleEditContact,
     toggleDeleteContact,
@@ -85,6 +87,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
       localStorage.setItem('client-hub:token', token);
       enqueueSnackbar('Login feito com sucesso', { variant: 'success' });
+      toggleLogin();
       navigate('dashboard');
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
@@ -144,6 +147,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       if (axios.isAxiosError(error)) {
         enqueueSnackbar(`${error?.response?.data.message}`, {
           variant: 'error',
+          autoHideDuration: 2000,
         });
       } else {
         console.log(error);
@@ -155,7 +159,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     try {
       await api.delete(`/users/${userId}/`);
       enqueueSnackbar('Usuário deletado com sucesso', { variant: 'warning' });
-      logout();
+      toggleDeleteUser(), logout();
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
         enqueueSnackbar(`${error?.response?.data.message}`, {
@@ -187,7 +191,10 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       const response = await api.post(`/contacts/`, data);
       setContacts([...contacts, response.data]);
       toggleRegisterContact();
-      enqueueSnackbar('Contato registrado com sucesso', { variant: 'success' });
+      enqueueSnackbar('Contato registrado com sucesso', {
+        variant: 'success',
+        autoHideDuration: 1000,
+      });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
         enqueueSnackbar(`${error?.response?.data.message}`, {
@@ -215,11 +222,15 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         ...newContactList.slice(contactIndex),
       ]);
       toggleEditContact();
-      enqueueSnackbar('Contato editado com sucesso', { variant: 'info' });
+      enqueueSnackbar('Contato editado com sucesso', {
+        variant: 'info',
+        autoHideDuration: 2000,
+      });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
         enqueueSnackbar(`${error?.response?.data.message}`, {
           variant: 'error',
+          autoHideDuration: 2000,
         });
       } else {
         console.log(error);
@@ -233,8 +244,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     );
     try {
       await api.delete(`/contacts/${contactId}`);
-      toggleDeleteContact();
       setContacts(newContactList);
+      toggleDeleteContact();
       enqueueSnackbar('Contato deletado com sucesso', { variant: 'info' });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
