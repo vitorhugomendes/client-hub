@@ -33,12 +33,14 @@ export const StyledDashboardPage = styled.div`
 
   .user-section {
     display: flex;
+    flex-direction: column;
     align-items: center;
   }
 
   .user-buttons-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
     min-width: 50%;
   }
@@ -51,8 +53,9 @@ export const StyledDashboardPage = styled.div`
 
   .contacts-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 10px;
+    overflow: scroll;
   }
 
   .contacts-card {
@@ -78,18 +81,20 @@ export const StyledDashboardPage = styled.div`
     gap: 5px;
   }
 
-  @media (max-width: 838px) {
+  @media (min-width: 838px) {
     .user-section {
-      flex-direction: column;
+      flex-direction: row;
     }
-
     .user-buttons-container {
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+    }
+    .user-section {
+      flex-direction: row;
     }
 
     .contacts-list {
-      flex-wrap: nowrap;
-      overflow: scroll;
+      flex-wrap: wrap;
+      overflow: auto;
     }
   }
 `;
