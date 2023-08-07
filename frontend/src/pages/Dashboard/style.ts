@@ -23,21 +23,6 @@ export const StyledDashboardPage = styled.div`
     background-color: transparent;
   }
 
-  .logout-button::before {
-    content: attr(data-hover);
-    width: 150px;
-    visibility: hidden;
-    text-align: center;
-    padding: 5px 0;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-  }
-
-  .logout-button:hover:before {
-    opacity: 1;
-    visibility: visible;
-  }
-
   main {
     width: 100%;
     min-height: 500px;
