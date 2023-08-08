@@ -4,95 +4,32 @@ interface IModalProviderProps {
   children: ReactNode;
 }
 
+export type TModalOptions =
+  | 'Login'
+  | 'Cadastre-se'
+  | 'Adicionar contato'
+  | 'Editar contato'
+  | 'Deletar contato'
+  | 'Editar perfil'
+  | 'Deletar conta'
+  | 'Relatório de usuário'
+  | null;
+
 interface IModalContextValues {
-  isLoginOpen: boolean;
-  toggleLogin: () => void;
-  isRegisterUserOpen: boolean;
-  toggleRegisterUser: () => void;
-  isEditUserOpen: boolean;
-  toggleEditUser: () => void;
-  isDeleteUserOpen: boolean;
-  toggleDeleteUser: () => void;
-  isRegisterContactOpen: boolean;
-  toggleRegisterContact: () => void;
-  isEditContactOpen: boolean;
-  toggleEditContact: () => void;
-  isDeleteContactOpen: boolean;
-  toggleDeleteContact: () => void;
-  isRelatoryOpen: boolean;
-  toggleRelatory: () => void;
+  modal: TModalOptions;
+  setModal: React.Dispatch<React.SetStateAction<TModalOptions>>;
 }
 
 export const ModalContext = createContext({} as IModalContextValues);
 
 export const ModalProvider = ({ children }: IModalProviderProps) => {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-
-  const toggleLogin = () => {
-    setIsLoginOpen(!isLoginOpen);
-  };
-
-  const [isRegisterUserOpen, setIsRegisterUserOpen] = useState(false);
-
-  const toggleRegisterUser = () => {
-    setIsRegisterUserOpen(!isRegisterUserOpen);
-  };
-
-  const [isEditUserOpen, setIsEditUserOpen] = useState(false);
-
-  const toggleEditUser = () => {
-    setIsEditUserOpen(!isEditUserOpen);
-  };
-
-  const [isDeleteUserOpen, setIsDeleteUserOpen] = useState(false);
-
-  const toggleDeleteUser = () => {
-    setIsDeleteUserOpen(!isDeleteUserOpen);
-  };
-
-  const [isRegisterContactOpen, setIsRegisterContactOpen] = useState(false);
-
-  const toggleRegisterContact = () => {
-    setIsRegisterContactOpen(!isRegisterContactOpen);
-  };
-
-  const [isEditContactOpen, setIsEditContactOpen] = useState(false);
-
-  const toggleEditContact = () => {
-    setIsEditContactOpen(!isEditContactOpen);
-  };
-
-  const [isDeleteContactOpen, setIsDeleteContactOpen] = useState(false);
-
-  const toggleDeleteContact = () => {
-    setIsDeleteContactOpen(!isDeleteContactOpen);
-  };
-
-  const [isRelatoryOpen, setIsRelatoryOpen] = useState(false);
-
-  const toggleRelatory = () => {
-    setIsRelatoryOpen(!isRelatoryOpen);
-  };
+  const [modal, setModal] = useState<TModalOptions>(null);
 
   return (
     <ModalContext.Provider
       value={{
-        isLoginOpen,
-        toggleLogin,
-        isRegisterUserOpen,
-        toggleRegisterUser,
-        isEditUserOpen,
-        toggleEditUser,
-        isDeleteUserOpen,
-        toggleDeleteUser,
-        isRegisterContactOpen,
-        toggleRegisterContact,
-        isEditContactOpen,
-        toggleEditContact,
-        isDeleteContactOpen,
-        toggleDeleteContact,
-        isRelatoryOpen,
-        toggleRelatory,
+        modal,
+        setModal,
       }}
     >
       {children}

@@ -68,15 +68,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const token = localStorage.getItem('client-hub:token') || null;
   const userId = token ? jwt_decode<JwtPayload>(token).sub : null;
 
-  const {
-    toggleRegisterUser,
-    toggleLogin,
-    toggleEditUser,
-    toggleDeleteUser,
-    toggleRegisterContact,
-    toggleEditContact,
-    toggleDeleteContact,
-  } = useModal();
+  const { setModal } = useModal();
 
   const login = async (data: LoginData) => {
     try {
@@ -87,7 +79,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       api.defaults.headers.common.Authorization = `Bearer ${token}`;
       localStorage.setItem('client-hub:token', token);
       enqueueSnackbar('Login feito com sucesso', { variant: 'success' });
-      toggleLogin();
+      setModal(null);
       navigate('dashboard');
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
@@ -104,7 +96,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     try {
       await api.post('/users/', data);
       navigate('/');
-      toggleRegisterUser();
+      setModal(null);
       enqueueSnackbar('Registro feito com sucesso', { variant: 'success' });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
@@ -141,7 +133,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     try {
       const response = await api.patch(`/users/${userId}/`, data);
       setUser(response.data);
-      toggleEditUser();
+      setModal(null);
       enqueueSnackbar('Dados editados com sucesso', { variant: 'success' });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
@@ -159,7 +151,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     try {
       await api.delete(`/users/${userId}/`);
       enqueueSnackbar('Usuário deletado com sucesso', { variant: 'warning' });
-      toggleDeleteUser(), logout();
+      setModal(null), logout();
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {
         enqueueSnackbar(`${error?.response?.data.message}`, {
@@ -190,7 +182,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     try {
       const response = await api.post(`/contacts/`, data);
       setContacts([...contacts, response.data]);
-      toggleRegisterContact();
+      setModal(null);
       enqueueSnackbar('Contato registrado com sucesso', {
         variant: 'success',
         autoHideDuration: 1000,
@@ -221,7 +213,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         response.data,
         ...newContactList.slice(contactIndex),
       ]);
-      toggleEditContact();
+      setModal(null);
       enqueueSnackbar('Contato editado com sucesso', {
         variant: 'info',
         autoHideDuration: 2000,
@@ -245,7 +237,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     try {
       await api.delete(`/contacts/${contactId}`);
       setContacts(newContactList);
-      toggleDeleteContact();
+      setModal(null);
       enqueueSnackbar('Contato deletado com sucesso', { variant: 'info' });
     } catch (error: AxiosError | unknown) {
       if (axios.isAxiosError(error)) {

@@ -26,20 +26,7 @@ export const Dashboard = () => {
   const { logout, user, contacts } = useAuth();
   const [contactInfo, setContactInfo] = useState({} as IContactInfo);
 
-  const {
-    isEditUserOpen,
-    toggleEditUser,
-    isDeleteUserOpen,
-    toggleDeleteUser,
-    isRegisterContactOpen,
-    toggleRegisterContact,
-    isEditContactOpen,
-    toggleEditContact,
-    isDeleteContactOpen,
-    toggleDeleteContact,
-    isRelatoryOpen,
-    toggleRelatory,
-  } = useModal();
+  const { setModal } = useModal();
 
   return (
     <StyledDashboardPage>
@@ -60,28 +47,28 @@ export const Dashboard = () => {
             <div className="user-buttons-container">
               <Button
                 size="medium"
-                clickFunction={toggleRegisterContact}
+                clickFunction={() => setModal('Adicionar contato')}
                 type="button"
               >
                 Adicionar contato
               </Button>
               <Button
                 size="medium"
-                clickFunction={toggleRelatory}
+                clickFunction={() => setModal('Relatório de usuário')}
                 type="button"
               >
                 Gerar Relatório
               </Button>
               <Button
                 size="medium"
-                clickFunction={toggleEditUser}
+                clickFunction={() => setModal('Editar perfil')}
                 type="button"
               >
                 Editar perfil
               </Button>
               <Button
                 size="medium"
-                clickFunction={toggleDeleteUser}
+                clickFunction={() => setModal('Deletar conta')}
                 type="button"
               >
                 Deletar conta
@@ -122,7 +109,7 @@ export const Dashboard = () => {
                         type="button"
                         clickFunction={() => {
                           setContactInfo(contact);
-                          toggleEditContact();
+                          setModal('Editar contato');
                         }}
                       >
                         Editar contato
@@ -131,7 +118,7 @@ export const Dashboard = () => {
                         size="small"
                         clickFunction={() => {
                           setContactInfo(contact);
-                          toggleDeleteContact();
+                          setModal('Deletar contato');
                         }}
                         type="button"
                       >
@@ -145,46 +132,22 @@ export const Dashboard = () => {
           </section>
         </main>
       </StyledContainer>
-      <Modal
-        title="Adicionar contato"
-        isOpen={isRegisterContactOpen}
-        toggle={toggleRegisterContact}
-      >
+      <Modal title="Adicionar contato">
         <RegisterContactForm />
       </Modal>
-      <Modal
-        title="Relatório de usuário"
-        isOpen={isRelatoryOpen}
-        toggle={toggleRelatory}
-      >
+      <Modal title="Relatório de usuário">
         <Relatory />
       </Modal>
-      <Modal
-        title="Editar usuário"
-        isOpen={isEditUserOpen}
-        toggle={toggleEditUser}
-      >
+      <Modal title="Editar perfil">
         <EditUserForm />
       </Modal>
-      <Modal
-        title="Deletar Conta"
-        isOpen={isDeleteUserOpen}
-        toggle={toggleDeleteUser}
-      >
+      <Modal title="Deletar conta">
         <DeleteUserForm />
       </Modal>
-      <Modal
-        title="Editar contato"
-        isOpen={isEditContactOpen}
-        toggle={toggleEditContact}
-      >
+      <Modal title="Editar contato">
         <EditContactForm contactInfo={contactInfo} />
       </Modal>
-      <Modal
-        title="Deletar contato"
-        isOpen={isDeleteContactOpen}
-        toggle={toggleDeleteContact}
-      >
+      <Modal title="Deletar contato">
         <DeleteContactForm contactId={contactInfo.id} />
       </Modal>
     </StyledDashboardPage>
