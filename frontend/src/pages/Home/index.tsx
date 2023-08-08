@@ -6,8 +6,7 @@ import { StyledTitle } from '../../styles/Typography';
 import Logo from '../../assets/client-icon-color.png';
 
 export const Home = () => {
-  const { isLoginOpen, toggleLogin, isRegisterUserOpen, toggleRegisterUser } =
-    useModal();
+  const { setModal } = useModal();
 
   return (
     <StyledHomePage>
@@ -25,23 +24,27 @@ export const Home = () => {
             Client Hub
           </StyledTitle>
           <div className="buttons-container">
-            <Button size="big" type="button" clickFunction={toggleLogin}>
+            <Button
+              size="big"
+              type="button"
+              clickFunction={() => setModal('Login')}
+            >
               Login
             </Button>
-            <Button size="big" type="button" clickFunction={toggleRegisterUser}>
+            <Button
+              size="big"
+              type="button"
+              clickFunction={() => setModal('Cadastre-se')}
+            >
               Registre-se
             </Button>
           </div>
         </div>
       </StyledContainer>
-      <Modal
-        title="Cadastre-se"
-        isOpen={isRegisterUserOpen}
-        toggle={toggleRegisterUser}
-      >
+      <Modal title="Cadastre-se">
         <RegisterUserForm />
       </Modal>
-      <Modal title="Login" isOpen={isLoginOpen} toggle={toggleLogin}>
+      <Modal title="Login">
         <LoginForm />
       </Modal>
     </StyledHomePage>
