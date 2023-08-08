@@ -21,7 +21,6 @@ export const StyledModal = styled.div`
   top: 0;
 
   background: rgba(51, 51, 51, 0.5);
-  z-index: 1001;
 
   .modal-container {
     animation: ${FadeIn} 0.5s;

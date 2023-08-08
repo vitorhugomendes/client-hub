@@ -48,11 +48,7 @@ export const Dashboard = () => {
           <div className="logo-container">
             <img src={Logo} alt="Client Hub Logo" />
           </div>
-          <button
-            className="logout-button"
-            onClick={logout}
-            data-hover="Logout"
-          >
+          <button className="logout-button" onClick={logout} title="Logout">
             <LogoutRounded />
           </button>
         </header>

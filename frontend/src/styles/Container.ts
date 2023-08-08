@@ -16,7 +16,6 @@ export const StyledContainer = styled.div<IStyledContainerProps>`
   border-radius: 30px;
   padding: 15px 32px;
   margin: 15px auto;
-  min-width: 500px;
   max-width: ${({ $containerwidth }) => $containerwidth || 1337}px;
   background-color: ${({ theme }) => theme.colors.background};
 `;
